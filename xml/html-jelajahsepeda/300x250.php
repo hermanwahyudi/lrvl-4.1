@@ -18,7 +18,7 @@
 <style>
 	html,body, ul, li{margin:0;padding:0;}
 	.clearit { clear:both; }
-	.jelajah-wrapper{background:url(images/bn300x250.jpg) no-repeat scroll 0 0 #fff;height:250px;width:300px;overflow:hidden;}
+	.jelajah-wrapper{background:url(images/bn300x250.jpg) no-repeat scroll 0 0 #fff;height:300px;width:300px;overflow:hidden;}
 	.jelajah-body { padding:76px 0 0 0;}
 	.jelajah-body ul{background:rgba(0,0,0, 0.8);margin:10px;border-radius:6px;-moz-border-radius:6px;-webkit-border-radius:6px;-o-border-radius:6px; height:auto; padding:0px 0 10px 0;}
 	.jelajah-body li {list-style:none;margin:0 10px;padding:10px 0 0px 0; display: inline-table; width:260px; height:63px;}
@@ -40,24 +40,23 @@
 </style>
 </head>
 <body>
+	<?php 
+		$xml = simplexml_load_file("../lipsus.xml", "SimpleXMLElement", LIBXML_NOCDATA);
+		$nodes = $xml->xpath("//report/news/content");
+	?>
 	<div class="jelajah-wrapper">
-        <a class="linkidxjelajah" href="#" target="_blank"></a>
+        <a class="linkidxjelajah" href="<?php echo $nodes[0]->title['path']; ?>" target="_blank"></a>
 		<div class="jelajah-body">
 			<ul>
+				<?php foreach($nodes as $child) { ?>
 				<li>
-                    <a href="#" target="_blank">
+                    <a href="<?php echo $child->title['urlshort']; ?>" target="_blank">
                     <div class="jelajah-img">
-                    <img src="images/bn300x250_03.jpg" border="0" /></div>
-                    <p>Tinggi, Animo Masyarakat Ikut KOMPAS  </p>
+                    <img src="<?php echo $child->thumb; ?>" border="0" /></div>
+                    <p><?php echo $child->title; ?>  </p>
                     </a>
 				</li>
-				<li>
-                    <a href="#" target="_blank">
-                    <div class="jelajah-img">
-                    <img src="images/bn300x250_06.jpg" border="0" /></div>
-                    <p>Animo Masyarakat Ikut Manado Bike</p>
-                    </a>
-				</li>
+				<?php } ?>
 			</ul>
 		</div>
 	</div>
