@@ -16,7 +16,10 @@ class HomeController extends BaseController {
 	*/
 
 	public function showWelcome() {
-		return View::make('hello');
+		$posts = DB::table('post')->get();
+		foreach ($posts as $post) {
+    		echo $post->title . '<br>';
+		}
 	}
 
 }
